@@ -32,7 +32,7 @@
 # To change the target, use the Library manager ('make modlibs' from command line).
 # If TARGET is manually edited, ensure TARGET_<BSP>.lib with a valid URL exists
 # in the application, and run 'make getlibs' to fetch BSP contents.
-TARGET=CY8CPROTO-062-4343W
+TARGET=CY8CKIT-064B0S2-4343W
 
 # Name of application (used to derive name of final linked file).
 APPNAME=AnyCloud_BLE_CTS_Server

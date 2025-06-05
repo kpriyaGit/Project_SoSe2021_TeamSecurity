@@ -1,72 +1,50 @@
-# CE230304 - AnyCloud: BLE CTS Client
+# BLE Client
 
-This code example demonstrates the implementation of a simple BLE GAP Peripheral - GATT Client with Current Time Service ([CTS](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.current_time.xml)) using the Cypress Combo (Wi-Fi+BT) SoCs and ModusToolbox™ Software Environment.
+This code example demonstrates the implementation of a simple BLE GAP Peripheral - GATT Client with Custom Service receiving custom data from Client ([BLE_Client](https://code.fbi.h-da.de/StudentCar/teamprojects/010_security_pscoc64_aws/-/tree/master/40_Implementation/BLE_Client)) using the Cypress Combo (Wi-Fi+BT) SoCs and ModusToolbox™ Software Environment.
 
-In this code example, the kit advertises as 'BLE CTS Client' and after connection with a CTS-based server, enables notifications for 'current time' characteristic. The time and date received through the notification are printed on the serial terminal.
+In this code example, the kit advertises as 'BLE CTS Client' and after connection with a Custom Service based server, enables notifications for 'custom_service' characteristic. The customised data received through the notification are printed on the serial terminal.
 
-Use this code example with [AnyCloud BLE CTS Server](https://github.com/cypresssemiconductorco/mtb-example-anycloud-ble-cts-server).
+Use this code example with [BLE Server](https://code.fbi.h-da.de/StudentCar/teamprojects/010_security_pscoc64_aws/-/tree/master/40_Implementation/BLE_Server).
 
 ## Requirements
 
-- [ModusToolbox™ software](https://www.cypress.com/products/modustoolbox-software-environment) v2.1
+- [ModusToolbox™ software](https://www.cypress.com/products/modustoolbox-software-environment) v2.3 + v2.3.1 (patch)
 - Programming Language: C
 - Associated Parts: [PSoC® 6 MCU](http://www.cypress.com/PSoC6), [CYW43012](https://www.cypress.com/documentation/product-overviews/cypress-cyw43012), [CYW4343W](https://www.cypress.com/documentation/datasheets/cyw4343w-single-chip-80211-bgn-macbasebandradio-bluetooth-41)
 
 ## Supported Kits
 
-- [PSoC 6 WiFi-BT Prototyping Kit](https://www.cypress.com/CY8CPROTO-062-4343W) (CY8CPROTO-062-4343W) - Default target
-- [PSoC 62S2 WiFi-BT Pioneer Kit](https://www.cypress.com/CY8CKIT-062S2-43012) (CY8CKIT-062S2-43012)
-- [PSoC 6 WiFi-BT Pioneer Kit](https://www.cypress.com/CY8CKIT-062-WiFi-BT)(CY8CKIT-062-WiFi-BT)
+- [CY8CKIT-064S0S2-4343W](https://www.infineon.com/cms/en/product/evaluation-boards/cy8ckit-064s0s2-4343w/?utm_source=cypress&utm_medium=referral&utm_campaign=202110_globe_en_all_integration-dev_kit)
 
 ## Hardware Setup
-This example uses the kit’s default configuration. See the respective kit guide to ensure that the kit is configured correctly.
+
+Refer to Chapters 3 and 4 in [GettingStarted_MTB_BLE.pdf](https://code.fbi.h-da.de/StudentCar/teamprojects/010_security_pscoc64_aws/-/blob/master/10_Projectmanagement/50_Documentation/GettingStarted_MTB_BLE.pdf)
 
 ## Software Setup
+
 Install a terminal emulator if you don't have one. Instructions in this document use [Tera Term](https://ttssh2.osdn.jp/index.html.en).
 
 ## Using the Code Example
+
+Clone the repository for BLE Client from gitlab and perform the following steps
 
 ### In Eclipse IDE for ModusToolbox:
 
 1. Click the **New Application** link in the Quick Panel (or, use **File** > **New** > **ModusToolbox Application**).
 
-2. Pick a kit supported by the code example from the list shown in the **Project Creator - Choose Board Support Package (BSP)** dialog.
+2. Pick CY8CKIT-064B0S2-4343W from the list shown in the **Project Creator - Choose Board Support Package (BSP)** dialog.
 
-   When you select a supported kit, the example is reconfigured automatically to work with the kit. To work with a different supported kit later, use the **Library Manager** to choose the BSP for the supported kit. You can use the Library Manager to select or update the BSP and firmware libraries used in this application.
+   When you select a supported kit, the example is reconfigured automatically to work with the kit. You can use the Library Manager to select or update the BSP and firmware libraries used in this application.
 
    To access the Library Manager, right-click the application name from the Project Workspace window in the IDE, and select **ModusToolbox** > **Library Manager** (or select it from the **Quick Panel**).
 
-   You can also just start the application creation process again and select a different kit.
-
-   If you want to use the application for a kit not listed here, you may need to update the source files. If the kit does not have the required resources, the application may not work.
-
-3. In the **Project Creator - Select Application** dialog, choose the example.
+3. In the **Project Creator - Select Application** dialog, Import the project by providing the local path of the cloned repository.
 
 4. Optionally, update the **Application Name** and **Location** fields with the application name and local path where the application is created.
 
 5. Click **Create** to complete the application creation process.
 
 For more details, see the Eclipse IDE for ModusToolbox User Guide: *{ModusToolbox install directory}/ide_{version}/docs/mt_ide_user_guide.pdf*.
-
-### In Command-line Interface (CLI):
-
-1. Download and unzip this repository onto your local machine, or clone the repository.
-
-2. Open a CLI terminal and navigate to the application folder.
-
-   On Linux and macOS, you can use any terminal application. On Windows, navigate to the modus-shell directory (*{ModusToolbox install directory}/tools_\<version>/modus-shell*) and run *Cygwin.bat*.
-
-3. Import the required libraries by executing the `make getlibs` command.
-
-### In Third-party IDEs:
-
-1. Follow the instructions from the [CLI](#in-command-line-interface-cli) section to download or clone the repository, and import the libraries using the `make getlibs` command.
-
-2. Export the application to a supported IDE using the `make <ide>` command.
-
-3. Follow the instructions displayed in the terminal to create or import the application as an IDE project.
-
-For more details, see the "Exporting to IDEs" section of the ModusToolbox User Guide: *{ModusToolbox install directory}/ide_{version}/docs/mtb_user_guide.pdf*.
 
 
 ## Operation
@@ -85,7 +63,7 @@ For more details, see the "Exporting to IDEs" section of the ModusToolbox User G
       2. In the **Quick Panel**, scroll down, and click **\<Application Name> Program (KitProg3)**.
 
 
-   - **Using CLI**:
+   - **Using CLI (Not tested in local)**:
 
       From the terminal, execute the `make program` command to build and program the application using the default toolchain to the default target. You can specify a target and toolchain manually:
 
@@ -103,9 +81,9 @@ For more details, see the "Exporting to IDEs" section of the ModusToolbox User G
 
    After programming, the application starts automatically. Observe the messages on the UART terminal, and wait for the device to make all the required connections.
 
-4. Use another supported PSoC 6 kit and program it with the[AnyCloud BLE CTS Server](https://github.com/cypresssemiconductorco/mtb-example-anycloud-ble-cts-server) code example.
+4. Use another supported PSoC 6 kit and program it with the[BLE Server](https://code.fbi.h-da.de/StudentCar/teamprojects/010_security_pscoc64_aws/-/tree/master/40_Implementation/BLE_Server) code example.
 
-    Once both the kits are powered, the kits will be auto connected. The client device will subscribe for notifications and print the received simulated date and time on serial terminal.
+5. Once both the kits are powered, press the user button on Server to start scanning for peripheral devices and press user button on the client to start advertising. Once connection is established, the client device will subscribe for notifications, decrypt and print the received customised data on the serial terminal.
 
    **Figure 1. Terminal Output**
    ![Figure 1](images/terminal_output.png)
@@ -116,7 +94,7 @@ You can debug the example to step through the code. In the IDE, use the **\<Appl
 
 ## Design and Implementation
 
-The code example configures the device as a BLE GAP Peripheral and GATT Client. Current Time Service (CTS)-based Time profile is showcased in the example. The device advertises with the name 'BLE CTS Client'. After connection with the BLE Central device, it sends a Service Discovery (by UUID) request. If CTS UUID is present in the Server GATT database, the client device enables notifications for CTS by writing into the Client Characteristic Configuration Descriptor (CCCD). The date and time notifications received are printed on the terminal.
+The code example configures the device as a BLE GAP Peripheral and GATT Client. Custom service characteristic is showcased in the example. The device advertises with the name 'BLE CTS Client'. After connection with the BLE Central device, it sends a Service Discovery (by UUID) request. If CTS UUID is present in the Server GATT database, the client device enables notifications for Custom Service by writing into the Client Characteristic Configuration Descriptor (CCCD). The custom data notifications received are decrypted and printed on the terminal.
 
 The project uses an LED present on the kit to indicate the advertisement and connection status.
 
@@ -170,9 +148,10 @@ This section explains the ModusToolbox resources and their configuration as used
 
 Document Title: *CE230304 - AnyCloud: BLE CTS Client*
 
-| Version | Description of Change |
-| ------- | --------------------- |
-| 1.0.0   | New code example      |
+| Version | Description of Change                |
+| ------- | -------------------------------------|
+| 1.0.0   | New code example                     |
+| 1.0.1   | Modified for Security_SS2021 project |
 
 ------
 
